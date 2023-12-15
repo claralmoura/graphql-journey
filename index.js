@@ -1,11 +1,21 @@
-// Primeiro desafio: criar uma query que retorna um new Date() em String
-
 const { ApolloServer, gql } = require('apollo-server')
 
 const typeDefs = gql`
+    scalar Date
+
+    type Usuario {
+        id: ID!
+        nome: String!
+        email: String!
+        idade: Int
+        salario: Float
+        vip: Boolean
+    }
+
     type Query {
-        ola: String
-        horaAtual: String
+        ola: String!
+        horaAtual: Date!
+        usuarioLogado: Usuario
     }
 `
 
@@ -15,7 +25,17 @@ const resolvers = {
             return 'Retornando String'
         },
         horaAtual() {
-            return String(new Date())
+            return new Date
+        },
+        usuarioLogado() {
+            return {
+                id: 1,
+                nome: 'Clara',
+                email: 'clara@email.com',
+                idade: 20,
+                salario: 1234.56,
+                vip: true
+            }
         }
     }
 }
