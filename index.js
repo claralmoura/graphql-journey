@@ -1,4 +1,4 @@
-// Segundo desafio: criar um type "Produto", com nome (obrigatório),
+// Segundo desafio (ajuste): criar um type "Produto", com nome (obrigatório),
 // preco(obrigatório), desconto e precoCOmDesconto, onde o precoCOmDesconto
 // é calculado em um resolver e a Query será produtoEmDestaque.
 
@@ -40,7 +40,9 @@ const resolvers = {
 
     Produto: {
         precoComDesconto(produto) {
-            return produto.preco - produto.desconto
+            if(produto.desconto !== null)
+                return produto.preco - produto.preco * (produto.desconto/100)
+            else return null
         }
     },
 
@@ -64,8 +66,8 @@ const resolvers = {
         produtoEmDestaque() {
             return {
                 nome: 'Liquidificador',
-                preco: 100.01,
-                desconto: 20.01,
+                preco: 100.00,
+                desconto: 20.00,
             }
         }
     }
