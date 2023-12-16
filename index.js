@@ -1,7 +1,3 @@
-// Segundo desafio (ajuste): criar um type "Produto", com nome (obrigatório),
-// preco(obrigatório), desconto e precoCOmDesconto, onde o precoCOmDesconto
-// é calculado em um resolver e a Query será produtoEmDestaque.
-
 const { ApolloServer, gql } = require('apollo-server')
 
 const typeDefs = gql`
@@ -28,6 +24,7 @@ const typeDefs = gql`
         horaAtual: Date!
         usuarioLogado: Usuario
         produtoEmDestaque: Produto
+        numerosMegaSena: [Int!]!
     }
 `
 
@@ -69,6 +66,13 @@ const resolvers = {
                 preco: 100.00,
                 desconto: 20.00,
             }
+        },
+        numerosMegaSena() {
+            // return [4, 8, 13, 27, 33, 54]
+            const crescente = (a, b) => a - b
+            return Array(6).fill(0)
+                    .map(n => parseInt(Math.random() * 60 + 1))
+                    .sort(crescente)
         }
     }
 }
